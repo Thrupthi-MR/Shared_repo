@@ -1,0 +1,48 @@
+name: PR Review Notification
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  notify-reviewer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Teams Message
+        run: |
+          curl -H "Content-Type: application/json" \
+          -d '{
+          "@type":"MessageCard",
+          "@context":"http://schema.org/extensions",
+          "themeColor":"0078D7",
+          "summary":"PR Review Request",
+          "title":"🚀 Pull Request Review Needed",
+          "text":"A new Pull Request has been created.",
+          "sections":[{
+              "facts":[
+                {
+                  "name":"Repository",
+                  "value":"${{ github.repository }}"
+                },
+                {
+                  "name":"PR Title",
+                  "value":"${{ github.event.pull_request.title }}"
+                },
+                {
+                  "name":"Created By",
+                  "value":"${{ github.event.pull_request.user.login }}"
+                }
+              ]
+          }],
+          "potentialAction":[{
+            "@type":"OpenUri",
+            "name":"Review PR",
+            "targets":[{
+              "os":"default",
+              "uri":"${{ github.event.pull_request.html_url }}"
+            }]
+          }]
+          }' \
+          "${{ secrets.TEAMS_WEBHOOK_URL }}"
