@@ -17,4 +17,4 @@ jobs:
             -d '{
               "text":"Domain Review Required"
             }' \
-            "${{ secrets.DOMAIN_WEBHOOK_URL }}"
+            "${{ secrets.TEAMS_WEBHOOK_URL }}"
