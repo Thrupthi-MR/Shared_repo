@@ -1,0 +1,16 @@
+name: Linux Commands
+on: 
+  workflow_dispatch: 
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run Linux Commands
+        run: |
+          pwd
+          ls -la
+          whoami
+          date
+          uname -a
