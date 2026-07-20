@@ -1,4 +1,4 @@
-name: PR Review Notification
+name: Domain Review Notification
 
 on:
   pull_request:
@@ -52,4 +52,4 @@ jobs:
               }
             ]
           }' \
-          "${{ secrets.DOMAIN_WEBHOOK_URL }}"
+          "${{ secrets.TEAMS_WEBHOOK_URL }}"
