@@ -1,7 +1,6 @@
 name: File Operations
 on:
-  push:
-
+  workflow_dispatch: 
 jobs:
   files:
     runs-on: ubuntu-latest
