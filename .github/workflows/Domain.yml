@@ -52,4 +52,4 @@ jobs:
               }
             ]
           }' \
-          "${{ secrets.TEAMS_WEBHOOK_URL }}"
+          "${{ secrets.DOMAIN_WEBHOOK_URL }}"
