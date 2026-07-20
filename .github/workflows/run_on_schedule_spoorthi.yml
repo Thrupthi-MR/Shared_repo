@@ -1,0 +1,11 @@
+name: Daily Reminder
+on:
+  schedule:
+    - cron: '0 9 * * *'
+
+  jobs:
+    reminder:
+      runs-on: ubuntu-latest
+
+      steps:
+        - run: ech "Good Morning"
