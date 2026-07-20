@@ -2,18 +2,15 @@ name: Domain Review Notification
 
 on:
   pull_request:
-    types:
-      - opened
+    types: [opened]
 
 jobs:
-  notify-domain-review:
+  notify:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Send Teams Notification
+      - name: Teams Notification
         run: |
           curl -H "Content-Type: application/json" \
-          -d '{
-            "text": "📢 Domain Review Required\n\nRepository: '${{ github.repository }}'\nPR Title: '${{ github.event.pull_request.title }}'\nCreated By: '${{ github.event.pull_request.user.login }}'\nPR Link: '${{ github.event.pull_request.html_url }}'"
-          }' \
-          ${{ secrets.TEAMS_WEBHOOK_URL }}
+          -d '{"text":"📢 Domain Review Required: A new Pull Request has been created."}' \
+          "${{ secrets.TEAMS_WEBHOOK_URL }}"
