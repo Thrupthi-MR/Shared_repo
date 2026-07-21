@@ -1,6 +1,6 @@
 name: Linux Commands
 on: 
-  push: 
+  workflow_dispatch: : 
 
 jobs:
   linux:
