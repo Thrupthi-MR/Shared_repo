@@ -8,7 +8,10 @@ def calculate_grade(student_name, marks):
     if not marks:
         raise ValueError("Marks list cannot be empty")
 
-    if any(not isinstance(mark, (int, float)) for mark in marks):
+    if any(
+        not isinstance(mark, (int, float)) 
+        for mark in marks
+        ):
         raise ValueError("All marks must be numeric")
 
     if any(mark < 0 or mark > 100 for mark in marks):
@@ -31,7 +34,7 @@ def calculate_grade(student_name, marks):
 
 
 def main():
-    marks = [85, 78, 92, 88]
+    marks = [65, 78, 92, 88]
 
     student_report = calculate_grade(
         "Thrupthi",
