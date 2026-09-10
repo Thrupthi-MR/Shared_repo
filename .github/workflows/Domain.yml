@@ -1,0 +1,55 @@
+name: Domain Review Notification
+
+on:
+  pull_request:
+    types: [opened,synchronize]
+
+jobs:
+  notify-teams:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Teams Notification
+        run: |
+          curl -H "Content-Type: application/json" \
+          -d '{
+            "type":"message",
+            "attachments":[
+              {
+                "contentType":"application/vnd.microsoft.card.adaptive",
+                "content":{
+                  "$schema":"http://adaptivecards.io/schemas/adaptive-card.json",
+                  "type":"AdaptiveCard",
+                  "version":"1.4",
+                  "body":[
+                    {
+                      "type":"TextBlock",
+                      "size":"Large",
+                      "weight":"Bolder",
+                      "text":"🚀 New Pull Request Created"
+                    },
+                    {
+                      "type":"TextBlock",
+                      "text":"Repository: ${{ github.repository }}"
+                    },
+                    {
+                      "type":"TextBlock",
+                      "text":"Author: ${{ github.actor }}"
+                    },
+                    {
+                      "type":"TextBlock",
+                      "text":"PR Title: ${{ github.event.pull_request.title }}"
+                    }
+                  ],
+                  "actions":[
+                    {
+                      "type":"Action.OpenUrl",
+                      "title":"Review PR",
+                      "url":"${{ github.event.pull_request.html_url }}"
+                    }
+                  ]
+                }
+              }
+            ]
+          }' \
+          "${{ secrets.DOMAIN_WEBHOOK_URL }}"
